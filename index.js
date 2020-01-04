@@ -1,56 +1,6 @@
-resizeCanvas = (canvas) => {
+function resizeCanvas(canvas) {
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
-}
-
-function main() {
-    const canvas = document.querySelector('#glCanvas');
-
-    window.addEventListener('resize', resizeCanvas(canvas), false);
-
-    const gl = canvas.getContext("webgl");
-
-    if (gl === null) {
-        alert("Unable to initialize WebGL. Your browser or machine may not support it.");
-        return;
-    }
-
-
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-
-    gl.clear(gl.COLOR_BUFFER_BIT);
-
-    const fsSource = `
-        void main() {
-            gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-        }
-    `;
-
-    const vsSource =`
-        attribute vec4 aVertexPosition;
-
-        uniform mat4 uModelViewMatrix;
-        uniform mat4 uProjectionMatrix;
-    
-        void main() {
-            gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-        }
-    `;
-
-    const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
-
-    const programInfo = {
-        program: shaderProgram,
-        attribLocations: {
-            vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
-        },
-        uniformLocations: {
-            projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
-            modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
-        },
-    };
-
-    drawScence(gl, programInfo, initBuffers(gl))
 }
 
 function initShaderProgram(gl, vsSource, fsSource) {
@@ -167,6 +117,56 @@ function drawScence(gl, programInfo, buffers) {
         const vertexCount = 4;
         gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
     }
+}
+
+function main() {
+    const canvas = document.querySelector('#glCanvas');
+
+    window.addEventListener('resize', resizeCanvas(canvas), false);
+
+    const gl = canvas.getContext("webgl");
+
+    if (gl === null) {
+        alert("Unable to initialize WebGL. Your browser or machine may not support it.");
+        return;
+    }
+
+
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    const fsSource = `
+        void main() {
+            gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+        }
+    `;
+
+    const vsSource =`
+        attribute vec4 aVertexPosition;
+
+        uniform mat4 uModelViewMatrix;
+        uniform mat4 uProjectionMatrix;
+    
+        void main() {
+            gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+        }
+    `;
+
+    const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+
+    const programInfo = {
+        program: shaderProgram,
+        attribLocations: {
+            vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+        },
+        uniformLocations: {
+            projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
+            modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+        },
+    };
+
+    drawScence(gl, programInfo, initBuffers(gl))
 }
 
 window.onload = main;
