@@ -1,4 +1,4 @@
-resizeCanvas = () => {
+resizeCanvas = (canvas) => {
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 }
@@ -6,7 +6,7 @@ resizeCanvas = () => {
 function main() {
     const canvas = document.querySelector('#glCanvas');
 
-    window.addEventListener('resize', () => { canvas.height = window.innerHeight; canvas.width = window.innerWidth; }, false);
+    window.addEventListener('resize', resizeCanvas(canvas), false);
 
     const gl = canvas.getContext("webgl");
 
