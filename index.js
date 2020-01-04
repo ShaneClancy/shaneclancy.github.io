@@ -1,3 +1,6 @@
+// Globals
+var squareRotation = 0.0;
+
 function initShaderProgram(gl, vsSource, fsSource) {
     const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
     const fragmentShader = loadShader(gl , gl.FRAGMENT_SHADER, fsSource);
@@ -59,7 +62,7 @@ function initBuffers(gl) {
     }
 }
 
-function drawScence(gl, programInfo, buffers) {
+function drawScence(gl, programInfo, buffers, deltaTime) {
     gl.clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
     gl.clearDepth(1.0);                 // Clear everything
     gl.enable(gl.DEPTH_TEST);           // Enable depth testing
@@ -94,6 +97,7 @@ function drawScence(gl, programInfo, buffers) {
     // start drawing the square.
   
     mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, 0.0, -6.0]);
+    mat4.rotate(modelViewMatrix, modelViewMatrix, squareRotation, [0, 0, 1]);
   
     // Tell WebGL how to pull out the positions from the position
     // buffer into the vertexPosition attribute.
@@ -133,6 +137,8 @@ function drawScence(gl, programInfo, buffers) {
         const vertexCount = 4;
         gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
     }
+
+    squareRotation += deltaTime;
 }
 
 function main() {
@@ -196,7 +202,20 @@ function main() {
 
     const buffers = initBuffers(gl);
 
-    drawScence(gl, programInfo, buffers);
+    let then = 0;
+
+    function render(now) {
+        now *= 0.001;
+        const deltaTime = now - then;
+        then = now;
+
+        drawScence(gl, programInfo, buffers, deltaTime);
+
+        requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+
+    
 }
 
 window.onload = main;
