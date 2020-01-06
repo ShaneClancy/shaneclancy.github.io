@@ -1,6 +1,13 @@
 // Globals
 var squareRotation = 0.0;
 var cubeRotation = 0.0;
+var drag = false;
+var dX = 0.0;
+var dY = 0.0;
+var lastX = 0;
+var lastY = 0;
+var theta = 0.0;
+var phi = 0.0;
 
 function initShaderProgram(gl, vsSource, fsSource) {
     const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
@@ -120,7 +127,7 @@ function initBuffers(gl) {
     };
 }
 
-function drawScene(gl, programInfo, buffers, deltaTime) {
+function drawScene(gl, programInfo, buffers) {
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clearDepth(1.0);
     gl.enable(gl.DEPTH_TEST);
@@ -145,9 +152,9 @@ function drawScene(gl, programInfo, buffers, deltaTime) {
   
     // Now move the drawing position a bit to where we want to
     // start drawing the square.
-    mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, 0.0, -6.0]);  
-    mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation, [0, 0, 1]);
-    mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation * .7, [0, 1, 0]);
+    mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, 0.0, -6.0]);
+    mat4.rotate(modelViewMatrix, modelViewMatrix, theta, [0, 1, 0]);
+    mat4.rotate(modelViewMatrix, modelViewMatrix, phi, [1, 0, 0]);
   
     // Tell WebGL how to pull out the positions from the position
     // buffer into the vertexPosition attribute
@@ -193,8 +200,6 @@ function drawScene(gl, programInfo, buffers, deltaTime) {
         const offset = 0;
         gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
     }
-  
-    cubeRotation += deltaTime;
 }
 
 function main() {
@@ -258,14 +263,37 @@ function main() {
 
     const buffers = initBuffers(gl);
 
-    let then = 0;
+    mouseDown = (event) => {
+        drag = true;
+        lastX = event.pageX;
+        lastY = event.pageY;
+        event.preventDefault();
+        return false;
+    }
+
+    mouseUp = (event) => {
+        drag = false;
+    }
+
+    mouseMove = (event) => {
+        if (!drag) return false;
+        dX = (event.pageX - lastX)*2*Math.PI/canvas.width;
+        dY = (event.pageY - lastY)*2*Math.PI/canvas.height;
+        theta += dX;
+        phi += dY;
+        lastX = event.pageX;
+        lastY = event.pageY;
+        event.preventDefault();
+    }
+
+    canvas.addEventListener("mousedown", mouseDown, false);
+    canvas.addEventListener("mouseup", mouseUp, false);
+    canvas.addEventListener("mouseout", mouseUp, false);
+    canvas.addEventListener("mousemove", mouseMove, false);
 
     function render(now) {
-        now *= 0.001;
-        const deltaTime = now - then;
-        then = now;
 
-        drawScene(gl, programInfo, buffers, deltaTime);
+        drawScene(gl, programInfo, buffers);
 
         requestAnimationFrame(render);
     }
