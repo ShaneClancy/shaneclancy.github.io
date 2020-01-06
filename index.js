@@ -80,7 +80,7 @@ function initBuffers(gl) {
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
     const faceColors = [
-        [1.0,  1.0,  1.0,  1.0],    // Front face: white
+        [0.1,  0.1,  0.1,  1.0],    // Front face: charcoal
         [1.0,  0.0,  0.0,  1.0],    // Back face: red
         [0.0,  1.0,  0.0,  1.0],    // Top face: green
         [0.0,  0.0,  1.0,  1.0],    // Bottom face: blue
