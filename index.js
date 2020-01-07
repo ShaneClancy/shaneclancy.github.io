@@ -181,7 +181,7 @@ function drawScene(gl, programInfo, buffers, deltaTime) {
     // Now move the drawing position a bit to where we want to
     // start drawing the square.
     
-    mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, 0.0, -6.0]);
+    mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, -1.0, -6.0]);
     mat4.scale(modelViewMatrix, modelViewMatrix, [0.1 , 0.1, 0.1]);
     mat4.rotate(modelViewMatrix, modelViewMatrix, theta, [0, 1, 0]);
     mat4.rotate(modelViewMatrix, modelViewMatrix, phi, [1, 0, 0]);
