@@ -155,7 +155,7 @@ function loadTexture(gl, url) {
     return texture;
 }
 
-function drawScene(gl, programInfo, buffers) {
+function drawScene(gl, programInfo, buffers, deltaTime) {
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clearDepth(1.0);
     gl.enable(gl.DEPTH_TEST);
@@ -180,9 +180,13 @@ function drawScene(gl, programInfo, buffers) {
   
     // Now move the drawing position a bit to where we want to
     // start drawing the square.
+    
     mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, 0.0, -6.0]);
+    mat4.scale(modelViewMatrix, modelViewMatrix, [0.1 , 0.1, 0.1]);
     mat4.rotate(modelViewMatrix, modelViewMatrix, theta, [0, 1, 0]);
     mat4.rotate(modelViewMatrix, modelViewMatrix, phi, [1, 0, 0]);
+    mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation, [0, 0, 1]);
+    mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation * 0.7, [0, 1, 0]);
   
     // Tell WebGL how to pull out the positions from the position
     // buffer into the vertexPosition attribute
@@ -228,6 +232,8 @@ function drawScene(gl, programInfo, buffers) {
         const offset = 0;
         gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
     }
+
+    cubeRotation += deltaTime;
 }
 
 function main() {
@@ -319,9 +325,14 @@ function main() {
     canvas.addEventListener("mouseout", mouseUp, false);
     canvas.addEventListener("mousemove", mouseMove, false);
 
-    function render(now) {
+    let then = 0;
 
-        drawScene(gl, programInfo, buffers);
+    function render(now) {
+        now *= 0.001;
+        const deltaTime = now - then;
+        then = now;
+
+        drawScene(gl, programInfo, buffers, deltaTime);
 
         requestAnimationFrame(render);
     }
