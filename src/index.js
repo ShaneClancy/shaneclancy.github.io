@@ -5,8 +5,10 @@ import './index.css';
 class App extends React.Component {
     render() {
         return (
-            <Css/>,
-            <Nav/>
+            <div className="app">
+                <Css/>
+                <Nav/>
+            </div>
         );
     }
 }
@@ -48,7 +50,7 @@ class NavIcon extends React.Component {
     render() {
         return (
             <div className="nav-comp">
-                <a className="fa fa-github" href="https://github.com/shaneclancy"> </a>
+                <a className="fa fa-github nav-icon" href="https://github.com/shaneclancy"> </a>
             </div>
         );
     }

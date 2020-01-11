@@ -4,8 +4,13 @@
     box-sizing: border-box;
 }
 
+.app {
+    background-color: rgb(221, 221, 221);
+    height: 100vh;
+    width: 100vw;
+}
+
 .nav {
-    border: 1px solid black;
     width: 100%;
     display: flex;
     background-color: rgb(51, 51, 51);
@@ -15,6 +20,7 @@
     font-family: "Lato", sans-serif;
     font-weight: 100;
     font-size: 20px;
+    height: 100%;
 }
 
 .nav-item {
@@ -28,5 +34,13 @@
 .nav-item:hover {
     transform: translateX(25%);
     transition-duration: 1s;
-    background-color: rgb(128, 26, 0)
+    background-color: rgb(128, 26, 0);
+}
+
+.nav-icon {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    color: rgb(221, 221, 221);
+    padding: 10px;
 }
