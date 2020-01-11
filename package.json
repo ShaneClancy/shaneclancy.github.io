@@ -1,6 +1,6 @@
 {
-  "homepage": "http://shaneclancy.github.io/",
-  "name": "home",
+  "homepage": "shaneclancy.github.io/shaneclancy",
+  "name": "shaneclancy",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
