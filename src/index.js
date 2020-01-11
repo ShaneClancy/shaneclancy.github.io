@@ -35,7 +35,6 @@ class Nav extends React.Component {
 }
 
 class NavItem extends React.Component {
-
     render() {
         return (
             <div className="nav-comp">
@@ -46,7 +45,6 @@ class NavItem extends React.Component {
 }
 
 class NavIcon extends React.Component {
-
     render() {
         return (
             <div className="nav-comp">
