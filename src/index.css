@@ -32,7 +32,7 @@
 }
 
 .nav-item:hover {
-    transform: translateX(25%);
+    transform: translateX(5%);
     transition-duration: 1s;
     background-color: rgb(128, 26, 0);
 }
