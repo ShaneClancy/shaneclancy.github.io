@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: rgb(221, 221, 221);
 }
 
 .app {
@@ -24,6 +25,7 @@
 }
 
 .nav-item {
+    background-color: rgb(51, 51, 51);
     display: block;
     color: rgb(221, 221, 221);
     text-decoration: none;
@@ -38,9 +40,125 @@
 }
 
 .nav-icon {
+    background-color: rgb(51, 51, 51);
     position: absolute;
     right: 0px;
     top: 0px;
     color: rgb(221, 221, 221);
     padding: 10px;
+}
+
+.main-content {
+    display: flex;
+    width: 95%;
+    padding: 2.5%;
+}
+
+.card {
+    width: 40%;
+    height: 100%;
+    border: 1px solid lightslategray;
+    border-radius: 5px;
+    display: block;
+    font-family: "Lato", sans-serif;
+    transition: box-shadow 0.5s;
+    margin: 1%;
+}
+
+.card:hover {
+    box-shadow: 2px 2px 5px grey;
+}
+
+.card-header {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.card-header-text {
+    color: rgb(128, 26, 0);
+    display: block;
+    font-size: 18px;
+}
+
+.card-content {
+    padding: 10px;
+    display: flex;
+}
+
+.card-content-text {
+    display: block;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.card-content-flex {
+    display: flexbox;
+    padding: 10px;
+}
+
+.card-accordion {
+    display: block;
+    text-align: left;
+    width: 100%;
+    padding: 10px;
+    font-family: "Lato", sans-serif;
+    font-size: 16px;
+    color: rgb(128, 26, 0);
+    margin: 5px;
+    transition: 0.5s;
+    border-radius: 3px;
+    border: 1px solid lightslategray;
+
+}
+
+.card-accordion:after {
+    content: '>';
+    font-size: 13px;
+    font-weight: 100;
+    color: black;
+    float: right;
+    margin-left: 5px;
+    transform: rotate(-90deg);
+    transition: transform 0.5s;
+}
+
+.card-accordion:hover {
+    background-color: rgb(167, 162, 157)
+}
+
+.card-accordion-content {
+    display: block;
+    text-align: left;
+    border: 1px solid lightslategray;
+    font-family: "Lato", sans-serif;
+    border-radius: 3px;;
+    font-size: 14px;
+    color: black;
+    padding: 10px;
+    margin: 5px;
+}
+
+.active {
+    background-color:  rgb(180, 173, 165);
+    transition: transform 0.5s;
+}
+
+.active:after {
+    content: '>';
+    transition: transform 0.5s;
+    transform: rotate(90deg);
+}
+
+.hidden {
+    display: none;
+    padding: 0 18px;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+}
+
+.link-elem {
+    text-decoration: none;
+    cursor: pointer;
 }
